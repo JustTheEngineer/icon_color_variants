@@ -1,7 +1,7 @@
 ## Icon Color Variants (Brightness / Saturation / Hue)
 
 You can browse all icons using the interactive webpage:
-👉 <a href="https://justtheengineer.github.io/icon_color_variants/" target="_blank">Open the icon viewer</a>
+👉 [Open the icon viewer](https://justtheengineer.github.io/icon_color_variants/)
 
 This repository contains a large set of color‑variant icons generated from a single green base icon. Each icon is produced by applying ImageMagick’s `-modulate` transformation across a full 3‑dimensional parameter space:
 
