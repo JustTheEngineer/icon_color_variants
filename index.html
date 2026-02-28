@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Icon Browser</title>
+
+<style>
+    body {
+        font-family: sans-serif;
+        background: #fafafa;   /* light gray background */
+        color: #222;           /* dark text */
+        margin: 20px;
+    }
+    h1 { margin-bottom: 10px; }
+
+    .controls {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    label { font-weight: bold; }
+
+    select {
+        padding: 5px;
+        font-size: 14px;
+        background: #fff;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        color: #222;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 15px;
+    }
+
+    .item {
+        text-align: center;
+        background: #ddd;      /* slightly darker gray */
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    .item img {
+        width: 64px;
+        height: 64px;
+        image-rendering: crisp-edges;
+    }
+
+    .filename {
+        margin-top: 8px;
+        font-size: 12px;
+        color: #333;
+        word-break: break-all;
+    }
+</style>
+
+</head>
+<body>
+
+<h1>Icon Browser</h1>
+
+<div class="controls">
+    <div>
+        <label for="bFilter">Brightness:</label>
+        <select id="bFilter">
+            <option value="">All</option>
+        </select>
+    </div>
+    <div>
+        <label for="sFilter">Saturation:</label>
+        <select id="sFilter">
+            <option value="">All</option>
+        </select>
+    </div>
+    <div>
+        <label for="hFilter">Hue:</label>
+        <select id="hFilter">
+            <option value="">All</option>
+        </select>
+    </div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+// Load all icons by scanning the folder (filenames must be known)
+const brightnessValues = [40,50,60,70,80,90,100,110,120,130,140,150,160,170];
+const saturationValues = [40,60,80,100,120,140,150,160,170,180];
+const hueValues = [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200];
+
+
+const grid = document.getElementById("grid");
+const bFilter = document.getElementById("bFilter");
+const sFilter = document.getElementById("sFilter");
+const hFilter = document.getElementById("hFilter");
+
+// Populate dropdowns
+brightnessValues.forEach(v => bFilter.innerHTML += `<option value="${v}">${v}</option>`);
+saturationValues.forEach(v => sFilter.innerHTML += `<option value="${v}">${v}</option>`);
+hueValues.forEach(v => hFilter.innerHTML += `<option value="${v}">${v}</option>`);
+
+// Build list of filenames
+let icons = [];
+brightnessValues.forEach(b => {
+    saturationValues.forEach(s => {
+        hueValues.forEach(h => {
+            const file = `icons/icon-b${String(b).padStart(3,'0')}-s${String(s).padStart(3,'0')}-h${String(h).padStart(3,'0')}.ico`;
+            icons.push({b, s, h, file});
+        });
+    });
+});
+
+// Render function
+function render() {
+    grid.innerHTML = "";
+    icons.forEach(icon => {
+        if (bFilter.value && icon.b != bFilter.value) return;
+        if (sFilter.value && icon.s != sFilter.value) return;
+        if (hFilter.value && icon.h != hFilter.value) return;
+
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+            <img src="${icon.file}" alt="">
+            <div class="filename">${icon.file}</div>
+        `;
+        grid.appendChild(div);
+    });
+}
+
+bFilter.onchange = render;
+sFilter.onchange = render;
+hFilter.onchange = render;
+
+render();
+</script>
+
+</body>
+</html>
+
