@@ -1,13 +1,3 @@
-A short, clear README helps people understand what the project is, how to use it, and why it exists. Since your icon set is essentially a **parameter‑swept color atlas** with a built‑in browser, the README should explain three things:
-
-- what the icons are  
-- how they were generated  
-- how people can browse and use them  
-
-Here’s a complete text you can drop into a `README.md` on GitHub.
-
----
-
 ## Icon Color Variants (Brightness / Saturation / Hue)
 
 This repository contains a large set of color‑variant icons generated from a single green base icon. Each icon is produced by applying ImageMagick’s `-modulate` transformation across a full 3‑dimensional parameter space:
@@ -75,6 +65,3 @@ These icons are useful for:
 
 All icons are free to use.
 
----
-
-If you want, I can also write a short description for the GitHub repository itself (the “About” box), or help you choose a repository name that makes the project easy to find.
